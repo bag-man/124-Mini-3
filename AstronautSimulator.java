@@ -1,4 +1,3 @@
-
 /**
  * Simulates astronauts trying to open spaceship airlock doors
  * @author cwl
@@ -32,10 +31,24 @@ public class AstronautSimulator {
 		// AirlockDoor implements Runnable and so make sure
 		// we tie the objects to Thread objects
         // STEP 3: CREATE TWO THREADS FOR THE TWO DOORS AND START THEM
+
+
 		// ENTER CODE HERE
+                Thread doorController1 = new Thread(doors[0]);
+                Thread doorController2 = new Thread(doors[1]);
 		
 		doorController1.start();
 		doorController2.start();
+
+		doors[0].requestToOpen();
+		try {
+		  Thread.sleep(800);
+		} catch(InterruptedException ex) {
+		  Thread.currentThread().interrupt();
+		}
+		doors[0].requestToOpen();
+
+		  
 		
 		// Loop infinitely trying to open airlock doors
 		while (true){
