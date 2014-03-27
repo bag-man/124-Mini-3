@@ -1,8 +1,8 @@
 public class AirlockDoor implements Runnable,Door {
 
-  volatile int numRequests = 0;
-  volatile String doorID; 
-  volatile AirLock Lock;
+  volatile boolean request;
+  private String doorID; 
+  private AirLock Lock;
 
   AirlockDoor(String s, AirLock a){
     doorID = s;
@@ -11,12 +11,30 @@ public class AirlockDoor implements Runnable,Door {
 
   @Override
   public void run() {
-
+    while(true) {
+      if(request == true) { 
+	synchronized(Lock) {
+	  System.out.println(doorID + " open");
+	  try {
+	    Thread.sleep(5000);
+	  } catch(InterruptedException ex) {
+	    Thread.currentThread().interrupt();
+	  }
+	  System.out.println(doorID + " closed");
+	  request = false;
+	}
+	try {
+	  Thread.sleep(1000);
+	} catch(InterruptedException ex) {
+	  Thread.currentThread().interrupt();
+	}
+      }
+    }
   }
 
   public void requestToOpen() {
-    numRequests++;
-    System.out.println("Request to open.");
+    request = true;
+    System.out.println("Request to open " + doorID);
   }
 
 }

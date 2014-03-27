@@ -25,8 +25,8 @@ public class AstronautSimulator {
 		// Give the doors a name (for debugging purposes) and
 		// a common airlock object used to store the "key" used
 		// by a critical section of code in the Door class
-		doors[0] = new AirlockDoor("1234", airLock);
-		doors[1] = new AirlockDoor("1235", airLock);
+		doors[0] = new AirlockDoor("Janet", airLock);
+		doors[1] = new AirlockDoor("Eric", airLock);
 		
 		// AirlockDoor implements Runnable and so make sure
 		// we tie the objects to Thread objects
@@ -40,14 +40,13 @@ public class AstronautSimulator {
 		doorController1.start();
 		doorController2.start();
 
-		doors[0].requestToOpen();
-		try {
-		  Thread.sleep(800);
-		} catch(InterruptedException ex) {
-		  Thread.currentThread().interrupt();
-		}
-		doors[0].requestToOpen();
-
+			doors[1].requestToOpen();
+			try {
+			  Thread.sleep(800);
+			} catch(InterruptedException ex) {
+			  Thread.currentThread().interrupt();
+			}
+			doors[0].requestToOpen();
 		  
 		
 		// Loop infinitely trying to open airlock doors
@@ -55,10 +54,15 @@ public class AstronautSimulator {
 			// random() returns a value in range 0.0..<1.0 multiplied by 10 and mod doors.length
 			// to return either 0 or 1 in order to randomly decide which door to request
 			int door = (int)((Math.random() * 10) % doors.length);
-			
-			// STEP 4: MAKE A REQUEST TO OPEN THE DOOR AND THEN ADD A DELAY BEFORE
-			// TRYING TO OPEN ANOTHER DOOR
-			// ENTER CODE HERE
+		/*	
+			doors[door].requestToOpen();
+			try {
+			  Thread.sleep(800);
+			} catch(InterruptedException ex) {
+			  Thread.currentThread().interrupt();
+			}
+*/
+
 		}
 	}
 }
